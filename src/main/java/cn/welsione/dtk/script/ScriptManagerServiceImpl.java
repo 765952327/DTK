@@ -1,6 +1,8 @@
 package cn.welsione.dtk.script;
 
 import cn.hutool.core.io.FileUtil;
+import cn.welsione.dtk.script.executor.ScriptExecutor;
+import cn.welsione.dtk.script.uploader.ScriptUploader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,8 @@ public class ScriptManagerServiceImpl implements ScriptManagerService{
     private ScriptRecognizer scriptRecognizer;
     @Autowired
     private List<ScriptExecutor> scriptExecutors;
+    @Autowired
+    private List<ScriptUploader> scriptUploaders;
     @Override
     public Script add(String key, String params, String path) {
         int type = scriptRecognizer.getType(path);
@@ -22,8 +26,14 @@ public class ScriptManagerServiceImpl implements ScriptManagerService{
         if (!file.exists()) {
             throw new IllegalArgumentException("找不到脚本文件");
         }
-        byte[] bytes = FileUtil.readBytes(file);
-        return scriptService.create(key, params, bytes, type);
+        String upload = null;
+        for (ScriptUploader uploader : scriptUploaders){
+            if (uploader.check(file)){
+                upload = uploader.upload(file);
+                break;
+            }
+        }
+        return scriptService.create(key, params, upload, type);
     }
     
     @Override

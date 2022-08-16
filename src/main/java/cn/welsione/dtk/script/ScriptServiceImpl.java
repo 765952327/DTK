@@ -10,7 +10,7 @@ public class ScriptServiceImpl implements ScriptService{
     @Autowired
     private ScriptRepository scriptRepository;
     @Override
-    public Script create(String key, String params, byte[] script, int type) {
+    public Script create(String key, String params, String script, int type) {
         if (findByKey(key) != null){
             throw new IllegalArgumentException("--key " + key + " 已存在");
         }
