@@ -21,7 +21,7 @@ public class ShellCommand {
     
     @ShellMethod(value = "执行扩展脚本")
     public void exec(@ShellOption("--key") String key,
-                       @ShellOption(value = "--command",defaultValue = "") String[] command){
+                       @ShellOption(value = "--command",defaultValue = "") String... command){
         scriptManagerService.execute(key, command);
     }
 }

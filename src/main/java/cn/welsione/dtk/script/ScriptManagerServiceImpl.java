@@ -1,13 +1,11 @@
 package cn.welsione.dtk.script;
 
-import cn.hutool.core.io.FileUtil;
 import cn.welsione.dtk.script.executor.ScriptExecutor;
 import cn.welsione.dtk.script.uploader.ScriptUploader;
+import java.io.File;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.io.*;
-import java.util.List;
 
 @Service
 public class ScriptManagerServiceImpl implements ScriptManagerService{
@@ -20,7 +18,11 @@ public class ScriptManagerServiceImpl implements ScriptManagerService{
     @Autowired
     private List<ScriptUploader> scriptUploaders;
     @Override
-    public Script add(String key, String params, String path) {
+    public synchronized Script add(String key, String params, String path) {
+        Script script = scriptService.findByKey(key);
+        if (script != null){
+            return script;
+        }
         int type = scriptRecognizer.getType(path);
         File file = new File(path);
         if (!file.exists()) {

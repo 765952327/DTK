@@ -1,11 +1,8 @@
 package cn.welsione.dtk.script.uploader;
 
 import cn.hutool.core.io.FileUtil;
-import cn.welsione.dtk.script.Script;
-import org.springframework.stereotype.Component;
-
 import java.io.File;
-import java.nio.charset.StandardCharsets;
+import org.springframework.stereotype.Component;
 
 @Component
 public class JarUploader implements ScriptUploader {
