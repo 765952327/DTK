@@ -1,4 +1,4 @@
-package cn.welsione.dtk.script.uploader;
+package cn.welsione.dtk.script;
 
 import java.io.File;
 
