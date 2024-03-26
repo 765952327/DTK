@@ -2,7 +2,6 @@ package cn.welsione.dtk.script.executor;
 
 import cn.welsione.dtk.script.Script;
 import cn.welsione.dtk.script.ScriptExecutor;
-import cn.welsione.dtk.script.ScriptType;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,7 +16,7 @@ public class ShellScriptExecutor implements ScriptExecutor {
         List<String> cmd = new ArrayList<>();
         cmd.add("sh");
         cmd.add(file.getAbsolutePath());
-        cmd.addAll(Arrays.asList(script.getFinalParams()));
+        cmd.addAll(Arrays.asList(script.getArgs()));
         ShellUtil.execInherit(cmd.toArray(new String[0]));
         script.close();
     }

@@ -4,6 +4,8 @@ import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
 import java.io.File;
 import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import java.util.stream.Stream;
 import lombok.extern.slf4j.Slf4j;
@@ -16,8 +18,7 @@ public final class ScriptBuilder {
     private String absolutePath;
     private File context;
     private String name;
-    private String[] params;
-    private String[] args;
+    private List<String> params = new ArrayList<>();
     
     private ScriptBuilder() {
     }
@@ -57,13 +58,12 @@ public final class ScriptBuilder {
         return this;
     }
     
-    public ScriptBuilder params(String... params) {
-        this.params = params;
-        return this;
-    }
-    
-    public ScriptBuilder args(String... args) {
-        this.args = args;
+    public ScriptBuilder param(String param,String arg) {
+        if (StrUtil.isBlank(param) || StrUtil.isBlank(arg)){
+            return this;
+        }
+        this.params.add(param);
+        this.params.add(arg);
         return this;
     }
     
@@ -79,9 +79,6 @@ public final class ScriptBuilder {
         try {
             Stream<String> lines = Files.lines(file.toPath());
             lines.forEach(line ->{
-                if (line.startsWith("#!params ")) {
-                    this.params = line.replace("#!params ", "").split(" ");
-                }
                 if (line.startsWith("#!key ")) {
                     this.key = line.replace("#!key ", "");
                 }
@@ -95,7 +92,7 @@ public final class ScriptBuilder {
         return this;
     }
     
-    public ScriptBuilder temp(String key, String context, String[] params) {
+    public ScriptBuilder temp(String key, String context) {
         this.type = ScriptType.TEMP;
         this.name = "temp-" + UUID.randomUUID() + "-" + key;
         this.key = this.name;
@@ -103,7 +100,6 @@ public final class ScriptBuilder {
         this.context = FileUtil.writeBytes(context.getBytes(), file);
         this.absolutePath = file.getAbsolutePath();
         this.path = file.getPath();
-        this.params = params;
         return this;
     }
     
@@ -115,8 +111,7 @@ public final class ScriptBuilder {
         script.setAbsolutePath(absolutePath);
         script.setContext(context);
         script.setName(name);
-        script.setParams(params);
-        script.setArgs(args);
+        script.setArgs(params.toArray(new String[0]));
         return script;
     }
     

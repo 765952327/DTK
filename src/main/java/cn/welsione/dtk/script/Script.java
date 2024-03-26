@@ -29,10 +29,6 @@ public class Script implements Serializable {
      */
     private String name;
     /**
-     * 脚本字段
-     */
-    private String[] params;
-    /**
      * 脚本参数
      */
     private String[] args;
@@ -86,14 +82,6 @@ public class Script implements Serializable {
         this.name = name;
     }
     
-    public String[] getParams() {
-        return params == null ? new String[]{} : params;
-    }
-    
-    public void setParams(String[] params) {
-        this.params = params;
-    }
-    
     public String[] getArgs() {
         return args == null ? new String[]{} : args;
     }
@@ -109,39 +97,4 @@ public class Script implements Serializable {
         }
     }
     
-    public String[] getFinalParams(){
-        return interleaveArrays(params,args);
-    }
-    
-    private String[] interleaveArrays(String[] arr1, String[] arr2) {
-        if (arr1 == null || arr1.length == 0) {
-            return arr2;
-        }
-        
-        if (arr2 == null || arr2.length == 0) {
-            return arr1;
-        }
-        
-        int totalLength = arr1.length + arr2.length;
-        String[] result = new String[totalLength];
-        
-        int index = 0;
-        int i = 0;
-        int j = 0;
-        
-        while (i < arr1.length && j < arr2.length) {
-            result[index++] = arr1[i++];
-            result[index++] = arr2[j++];
-        }
-        
-        while (i < arr1.length) {
-            result[index++] = arr1[i++];
-        }
-        
-        while (j < arr2.length) {
-            result[index++] = arr2[j++];
-        }
-        
-        return result;
-    }
 }
