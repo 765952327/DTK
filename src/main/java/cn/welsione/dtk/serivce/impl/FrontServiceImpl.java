@@ -61,10 +61,10 @@ public class FrontServiceImpl implements FrontService {
 //        service.link("RELEASE438","private1");
 //        service.link("RELEASE438","private2");
 //        service.link("RELEASE438","private3");
-        service.link("RELEASE438","private4");
+//        service.link("RELEASE438","private4");
 //        service.link("RELEASE438","private5");
-//        service.pull("RELEASE438");
-//        service.ln("/Users/weigaolei/CodeSpace/WorkSpace/qys-private/qys-data/data", configService.getConfig("private1") + "/data");
+//        service.pull("RELEASE439");
+        service.ln("/Users/weigaolei/CodeSpace/WorkSpace/qys-private/qys-data/data", configService.getConfig("private1") + "/data");
 //        service.ln("/Users/weigaolei/CodeSpace/WorkSpace/qys-private/qys-data/data_bak", configService.getConfig("private1") + "/data_bak");
 //        service.ln("/Users/weigaolei/CodeSpace/WorkSpace/qys-private/qys-data/data", configService.getConfig("private2") + "/data");
 //        service.ln("/Users/weigaolei/CodeSpace/WorkSpace/qys-private/qys-data/data_bak", configService.getConfig("private2") + "/data_bak");

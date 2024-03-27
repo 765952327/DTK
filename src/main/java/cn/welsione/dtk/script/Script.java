@@ -1,5 +1,7 @@
 package cn.welsione.dtk.script;
 
+import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.io.FileUtil;
 import java.io.File;
 import java.io.Serializable;
 import lombok.extern.slf4j.Slf4j;
@@ -97,4 +99,29 @@ public class Script implements Serializable {
         }
     }
     
+    private static String getCmd(String... command) {
+        StringBuilder res = new StringBuilder();
+        for (String cmd : command) {
+            res.append(cmd).append(" ");
+        }
+        if (res.length() == 0){
+            return "";
+        }
+        return res.deleteCharAt(res.length() - 1).toString();
+    }
+    
+    public String getLog() {
+        String log = "";
+        switch (type) {
+            case TEMP:
+                log = "[" + DateUtil.now() + "] " + FileUtil.readUtf8String(context) + " " + getCmd(args);
+                break;
+            case FILE:
+                log = "[" + DateUtil.now() + "] sh " + context.getAbsolutePath() + " " + getCmd(args);
+                break;
+            default:
+                break;
+        }
+        return log + "\n";
+    }
 }
