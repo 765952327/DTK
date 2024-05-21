@@ -1,4 +1,4 @@
-package cn.welsione.dtk.script;
+package cn.welsione.dtk.script.core;
 
 import java.io.File;
 

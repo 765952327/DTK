@@ -1,9 +1,9 @@
-package cn.welsione.dtk.script.executor;
+package cn.welsione.dtk.script.core.executor;
 
-import cn.welsione.dtk.script.Script;
-import cn.welsione.dtk.script.ScriptExecuteLogger;
-import cn.welsione.dtk.script.ScriptExecutor;
-import cn.welsione.dtk.script.logger.LocalScriptExecuteLogger;
+import cn.welsione.dtk.script.core.Script;
+import cn.welsione.dtk.script.core.ScriptExecuteLogger;
+import cn.welsione.dtk.script.core.ScriptExecutor;
+import cn.welsione.dtk.script.core.logger.LocalScriptExecuteLogger;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;

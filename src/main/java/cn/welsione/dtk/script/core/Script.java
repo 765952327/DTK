@@ -1,14 +1,15 @@
-package cn.welsione.dtk.script;
+package cn.welsione.dtk.script.core;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.io.FileUtil;
+import cn.welsione.dtk.framework.Entity;
 import java.io.File;
 import java.io.Serializable;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Marker;
 
 @Slf4j
-public class Script implements Serializable {
+public class Script extends Entity implements Serializable {
     private ScriptType type;
     /**
      * 唯一KEY

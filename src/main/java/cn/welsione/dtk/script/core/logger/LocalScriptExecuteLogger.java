@@ -1,8 +1,8 @@
-package cn.welsione.dtk.script.logger;
+package cn.welsione.dtk.script.core.logger;
 
 import cn.hutool.core.io.FileUtil;
-import cn.welsione.dtk.script.Script;
-import cn.welsione.dtk.script.ScriptExecuteLogger;
+import cn.welsione.dtk.script.core.Script;
+import cn.welsione.dtk.script.core.ScriptExecuteLogger;
 import java.io.File;
 
 public class LocalScriptExecuteLogger implements ScriptExecuteLogger {

@@ -1,6 +1,4 @@
-package cn.welsione.dtk.script;
-
-import cn.welsione.dtk.script.Script;
+package cn.welsione.dtk.script.core;
 
 /**
  *  脚本执行器

@@ -1,4 +1,4 @@
-package cn.welsione.dtk.script;
+package cn.welsione.dtk.script.core;
 
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;

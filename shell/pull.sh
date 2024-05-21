@@ -107,14 +107,14 @@ fi
 # 远程服务器信息
 remote_host=$(echo $ip | tr -d '"')
 echo "${input_project} host ${remote_host}"
+
+local_path="${local_folder_base}/${input_project}"
+mkdir "${local_path}"
 for subfix in "${remote_folders[@]}"
 do
     remote_path="${remote_folder_base}${subfix}"
-    local_path="${local_folder_base}/${input_project}"
     echo "start copy file from：${remote_path} to ${local_path}"
-    mkdir "${local_folder_base}${input_project}"
-    mkdir "${local_path}"
-    sshpass -p "$remote_password" scp -r $remote_user@$remote_host:$remote_path $local_path
+    sshpass -p "$remote_password" scp -r -o StrictHostKeyChecking=no $remote_user@$remote_host:$remote_path $local_path
     echo "End"
 done
 

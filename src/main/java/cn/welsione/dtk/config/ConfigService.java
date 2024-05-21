@@ -1,9 +1,9 @@
-package cn.welsione.dtk.serivce;
+package cn.welsione.dtk.config;
 
 public interface ConfigService {
     void open();
     
-    String getConfig(String key);
+    <T> T getConfig(String key,Class<T> clazz);
     
     boolean setConfig(String key,String val);
 }
