@@ -3,10 +3,8 @@ package cn.welsione.dtk.serivce.impl;
 import cn.hutool.core.io.FileUtil;
 import cn.welsione.dtk.config.ConfigService;
 import cn.welsione.dtk.config.ConfigServiceImpl;
-import cn.welsione.dtk.script.core.Script;
-import cn.welsione.dtk.script.core.ScriptBuilder;
-import cn.welsione.dtk.script.core.ScriptExecutor;
-import cn.welsione.dtk.script.core.executor.ShellScriptExecutor;
+import cn.welsione.dtk.script.core.ScriptContext;
+import cn.welsione.dtk.script.core.ScriptContextBuilder;
 import cn.welsione.dtk.serivce.FrontService;
 import java.io.File;
 
@@ -14,7 +12,8 @@ public class FrontServiceImpl implements FrontService {
     private static final String FRONT_BASE_PATH = "front.base.path";
     private static final String RESOURCE_BASE_PATH = "resource.base.path";
     private static final String RESOURCE_PATH = "resource.path";
-    private static final ScriptExecutor executor = new ShellScriptExecutor();
+    
+    
     private static final ConfigService configService = new ConfigServiceImpl();
     
     @Override
@@ -24,20 +23,20 @@ public class FrontServiceImpl implements FrontService {
     
     @Override
     public void pull(String proj, String env) {
-        Script script = ScriptBuilder.builder()
-                .shell(new File("shell/pull.sh"))
+        
+        ScriptContextBuilder.builder()
+                .key("front_pull")
                 .param("-d", configService.getConfig(FRONT_BASE_PATH, String.class))
                 .param("-p", proj)
                 .param("-e", null)
-                .build();
-        executor.execute(script);
+                .execute();
     }
     
     @Override
     public void ln(String origin, String target) {
         String cmd = "ln -s %s %s";
-        Script script = ScriptBuilder.builder().temp("ln-mac", String.format(cmd, origin, target)).build();
-        executor.execute(script);
+        ScriptContext script = ScriptContextBuilder.builder().temp("ln-mac", String.format(cmd, origin, target)).build();
+        script.execute();
     }
     
     @Override
@@ -65,7 +64,7 @@ public class FrontServiceImpl implements FrontService {
     
     public static void main(String[] args) {
         FrontService service = new FrontServiceImpl();
-        service.pull("RELEASE44X");
+//        service.pull("RELEASE44X");
 //        service.link("RELEASE438","private1");
 //        service.link("RELEASE438","private2");
 //        service.link("RELEASE44X", "private3");
@@ -78,7 +77,7 @@ public class FrontServiceImpl implements FrontService {
 //            });
 //            thread.start();
 //        }
-//        service.link("RELEASE44X","private3");
+        service.link("RELEASE44X", "private3");
 
 //        service.ln("/Users/weigaolei/CodeSpace/WorkSpace/qys-private/qys-data/data", configService.getConfig("private1") + "/data");
 //        service.ln("/Users/weigaolei/CodeSpace/WorkSpace/qys-private/qys-data/data_bak", configService.getConfig("private1") + "/data_bak");

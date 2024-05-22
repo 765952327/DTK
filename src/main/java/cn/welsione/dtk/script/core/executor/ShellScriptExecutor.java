@@ -1,6 +1,6 @@
 package cn.welsione.dtk.script.core.executor;
 
-import cn.welsione.dtk.script.core.Script;
+import cn.welsione.dtk.script.core.ScriptContext;
 import cn.welsione.dtk.script.core.ScriptExecuteLogger;
 import cn.welsione.dtk.script.core.ScriptExecutor;
 import cn.welsione.dtk.script.core.logger.LocalScriptExecuteLogger;
@@ -10,11 +10,15 @@ import java.util.Arrays;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * 目前只支持SHELL脚本
+ */
 @Slf4j
 public class ShellScriptExecutor implements ScriptExecutor {
     private static final ScriptExecuteLogger executeLogger = new LocalScriptExecuteLogger();
+    
     @Override
-    public void execute(Script script) {
+    public void execute(ScriptContext script) {
         File file = script.getContext();
         List<String> cmd = new ArrayList<>();
         cmd.add("sh");
@@ -24,10 +28,6 @@ public class ShellScriptExecutor implements ScriptExecutor {
         executeLogger.log(script);
         script.close();
     }
-    
-   
-    
-
     
     
 }

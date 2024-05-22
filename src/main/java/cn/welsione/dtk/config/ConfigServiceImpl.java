@@ -3,8 +3,8 @@ package cn.welsione.dtk.config;
 import cn.hutool.json.JSONUtil;
 import cn.welsione.dtk.framework.LocalPersister;
 import cn.welsione.dtk.framework.Persister;
-import cn.welsione.dtk.script.core.Script;
-import cn.welsione.dtk.script.core.ScriptBuilder;
+import cn.welsione.dtk.script.core.ScriptContext;
+import cn.welsione.dtk.script.core.ScriptContextBuilder;
 import cn.welsione.dtk.script.core.ScriptExecutor;
 import cn.welsione.dtk.script.core.executor.ShellScriptExecutor;
 
@@ -23,7 +23,7 @@ public class ConfigServiceImpl implements ConfigService {
     @Override
     public void open() {
         Config config = findByKey(DIR);
-        Script script = ScriptBuilder.builder()
+        ScriptContext script = ScriptContextBuilder.builder()
                 .temp("open_config", "open " + config.getValue()).build();
         executor.execute(script);
     }
