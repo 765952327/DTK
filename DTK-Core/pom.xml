@@ -7,6 +7,10 @@
     <groupId>cn.welsione</groupId>
     <artifactId>DevToolKit</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <modules>
+        <module>DTK-Core</module>
+    </modules>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
