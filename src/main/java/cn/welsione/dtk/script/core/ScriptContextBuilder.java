@@ -120,13 +120,13 @@ public final class ScriptContextBuilder {
         script.setScript(script.getScript());
         
         Script s = manager.getScriptByKey(key);
-        if (s == null) {
+        if (s == null && type != ScriptType.TEMP) {
             manager.create(script.getScript());
         }
         return script;
     }
     
-    public void execute(){
+    public void execute() {
         build().execute();
     }
     

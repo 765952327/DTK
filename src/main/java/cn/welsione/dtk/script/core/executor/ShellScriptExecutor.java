@@ -3,7 +3,7 @@ package cn.welsione.dtk.script.core.executor;
 import cn.welsione.dtk.script.core.ScriptContext;
 import cn.welsione.dtk.script.core.ScriptExecuteLogger;
 import cn.welsione.dtk.script.core.ScriptExecutor;
-import cn.welsione.dtk.script.core.logger.LocalScriptExecuteLogger;
+import cn.welsione.dtk.script.logger.LocalScriptExecuteLogger;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;

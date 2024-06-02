@@ -1,6 +1,5 @@
 package cn.welsione.dtk.script.core;
 
-import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.io.FileUtil;
 import cn.welsione.dtk.script.core.executor.ShellScriptExecutor;
 import java.io.File;
@@ -63,21 +62,6 @@ public class ScriptContext implements Serializable {
             return "";
         }
         return res.deleteCharAt(res.length() - 1).toString();
-    }
-    
-    public String getLog() {
-        String log = "";
-        switch (type) {
-            case TEMP:
-                log = "[" + DateUtil.now() + "] " + FileUtil.readUtf8String(context) + " " + getCmd(args);
-                break;
-            case FILE:
-                log = "[" + DateUtil.now() + "] sh " + context.getAbsolutePath() + " " + getCmd(args);
-                break;
-            default:
-                break;
-        }
-        return log + "\n";
     }
     
     public Script getScript() {

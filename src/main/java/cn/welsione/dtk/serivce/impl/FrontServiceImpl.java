@@ -23,7 +23,6 @@ public class FrontServiceImpl implements FrontService {
     
     @Override
     public void pull(String proj, String env) {
-        
         ScriptContextBuilder.builder()
                 .key("front_pull")
                 .param("-d", configService.getConfig(FRONT_BASE_PATH, String.class))
@@ -34,6 +33,7 @@ public class FrontServiceImpl implements FrontService {
     
     @Override
     public void ln(String origin, String target) {
+        FileUtil.del(target);
         String cmd = "ln -s %s %s";
         ScriptContext script = ScriptContextBuilder.builder().temp("ln-mac", String.format(cmd, origin, target)).build();
         script.execute();
@@ -43,7 +43,15 @@ public class FrontServiceImpl implements FrontService {
     public void link(String proj, String config) {
         String targetBase = configService.getConfig(config, String.class) + configService.getConfig(RESOURCE_PATH, String.class);
         
-        // 无需更新的
+        File[] links = FileUtil.ls(targetBase);
+        
+        for (File link : links) {
+            System.out.printf("del link %s\n", link.getAbsolutePath());
+            link.deleteOnExit();
+        }
+        
+        
+        //  无需更新的
         String base = configService.getConfig(RESOURCE_BASE_PATH, String.class);
         File[] baseResources = FileUtil.ls(base);
         for (File resource : baseResources) {
@@ -51,7 +59,7 @@ public class FrontServiceImpl implements FrontService {
             String target = targetBase + path.replace(base, "");
             ln(path, target);
         }
-        
+
         // 需要更新的
         String source = configService.getConfig(FRONT_BASE_PATH, String.class) + "/" + proj;
         File[] resources = FileUtil.ls(source);
@@ -64,7 +72,7 @@ public class FrontServiceImpl implements FrontService {
     
     public static void main(String[] args) {
         FrontService service = new FrontServiceImpl();
-//        service.pull("RELEASE44X");
+        service.pull("RELEASE438");
 //        service.link("RELEASE438","private1");
 //        service.link("RELEASE438","private2");
 //        service.link("RELEASE44X", "private3");
@@ -77,7 +85,7 @@ public class FrontServiceImpl implements FrontService {
 //            });
 //            thread.start();
 //        }
-        service.link("RELEASE44X", "private3");
+//        service.link("RELEASE438", "private3");
 
 //        service.ln("/Users/weigaolei/CodeSpace/WorkSpace/qys-private/qys-data/data", configService.getConfig("private1") + "/data");
 //        service.ln("/Users/weigaolei/CodeSpace/WorkSpace/qys-private/qys-data/data_bak", configService.getConfig("private1") + "/data_bak");

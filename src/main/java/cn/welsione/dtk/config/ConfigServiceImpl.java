@@ -53,6 +53,37 @@ public class ConfigServiceImpl implements ConfigService {
         return true;
     }
     
+    @Override
+    public <T> boolean setConfig(String key, T val) {
+        Config config = findByKey(key);
+        String json = JSONUtil.toJsonStr(val);
+        if (config == null) {
+            config = new Config(key, json, null);
+            persister.create(config);
+            return true;
+        }
+        config.setValue(json);
+        persister.update(config);
+        return true;
+    }
+    
+    @Override
+    public <T> boolean setDefault(String key, T val,String comment) {
+        Config config = findByKey(key);
+        if (config != null) {
+            return true;
+        }
+        String value;
+        if (val instanceof String){
+            value = val.toString();
+        } else {
+            value = JSONUtil.toJsonStr(val);
+        }
+        config = new Config(key, value, comment);
+        persister.create(config);
+        return true;
+    }
+    
     public static void main(String[] args) {
         ConfigServiceImpl configService = new ConfigServiceImpl();
         configService.setConfig("resource.base.path","/Users/weigaolei/CodeSpace/WorkSpace/qys-front/base");
